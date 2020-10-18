@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>方方的个人简历</title>
+    </head>
+    <body>
+        <form action="users" method="get" target="bbb">
+            <label for="user">用户名</label><input type="text" name="username" id="user">
+            <label>密码<input type="password" name="password"></label>
+            <!-- 
+            1)<input type="submit" value="button">
+            2)<input type="button" value="button">
+            3)<button>button</button>
+            4)<button type="button">button</button> 
+             form标签中button会自动升级成提交，而加了type这个button就只是一个按钮，
+                并没有提交功能 --> 
+            <input type="checkbox">爱我
+            <input type="checkbox" id="aiwo"><label for="aiwo">爱我</label>
+            <!-- lable标签包装后使得点击爱我文字也有作用，也可以不取名们直接用label包住input，
+                比如用户名和密码 -->
+                <label><input name="fruit" type="checkbox" value="orange">橘子</label>
+                <label><input name="fruit" type="checkbox" value="babnana">香蕉</label>
+            
+            <label><input name="tf" type="radio" value="yes">yes</label>
+            <label><input name="tf" type="radio" value="no">no</label>
+            <!--  checkbox是多选框  
+                  radio是单选框 name用同一个名字就只能选中一个-->
+
+                  <select name="分组" multiple>
+                    <option value="">-</option>
+                    <option value="1">第一组</option>
+                    <option value="2">第二组</option>
+                    <option value="3" disabled>第三组</option>
+                    <option value="4" selected>第四组</option>
+                    <!-- selected是默认选中，disabled是无效的不可选中  multiple属性是可以多选 按住CTRL键 -->
+                  </select>
+
+                  <hr>
+                  <textarea name="爱好" id="" cols="30" rows="10"></textarea>
+                  <input type="submit" value="button">   
+        </form>
+        <table border="1">
+            <colgroup>
+                <col width=100>
+                <col bgcolor=red width=200 >
+                <col width=100>
+                <col width=70>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>姓名</th>
+                    <th>班级</th>
+                    <th>分数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th><td>小明</td><td>1</td><td>93</td>
+                </tr>
+                <tr>
+                    <th></th><td>小红</td><td>1</td><td>89</td>
+                </tr>
+                <tr>
+                    <th>平均分</th><td></td><td></td><td>91</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>总分</th><td></td><td></td><td>182</td>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- thead,tbody,tfoot可以没有，如果有就会按顺序来 -->
+
+        <div class="TopNvaBar">
+            <img src="#" alt="logo">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">ABOUT</a>
+                        <a href="#">SKILLS</a>
+                        <a href="#">EXPERIENCE</a>
+                        <a href="#">PRICING</a>
+                        <a href="#">BLOG</a>
+                        <a href="#">CALENDAR</a>
+                        <a href="#">CONTACT</a>
+                        <a href="#">OTHER</a>
+                        <a href="#">ALL DEMOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="banner" style="background-image: url(#);"></div>
+        <main>
+            <div class="card">
+                <div class="pictrue">
+                    <img src="" alt="头像">
+                </div>
+                <div class="text">
+                    <div class="profile">
+                        <span class="welcome">hello</span>
+                        <h1>方应杭</h1>
+                        <p>前端开发工程师</p>
+                        <hr>
+                        <dl>
+                            <dt>年龄</dt>
+                            <dd>18</dd>
+                            <dt>所在城市</dt>
+                            <dd>北京</dd>
+                            <dt>邮箱</dt>
+                            <dd>fangyinghang@foxmail.com</dd>
+                            <dt>手机</dt>
+                            <dd>13812345678</dd>
+                        </dl>
+                    </div>
+                    <footer class="media">
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                        <a href="#"><img src="#" alt="..."></a>
+                    </footer>
+                </div>
+            </div>
+            <a class="button" href="#">下载PDF简历</a>
+            <p>
+                方应杭，资深前端开发工程师，资深前端讲师，现在饥人谷教前端课程。<br>
+                技能：前端开发，Rails开发，Node.js
+            </p>
+        </main>
+        <section>
+           <h2>技能</h2> 
+           <ol>
+               <li>HTML 5 &amp; CSS 3</li>
+               <li>JavaScript</li>
+               <li>jQuery</li>
+               <li>Vue</li>
+               <li>React</li>
+               <li>HTTP</li>
+           </ol>
+        </section>
+        <section>
+            <h2>作品集</h2>
+            <nav>
+                <ol>
+                    <li>所有</li>
+                    <li>框架</li>
+                    <li>原生JS&amp;CSS</li>
+                </ol>
+            </nav>
+            <div class="jobs">
+                <div class="big"></div>
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+        </section>
+    </body>
+</html>
