@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span{
+            border: 1px solid red;
+        }
+        div{
+            border: green 1px solid;
+        }
+    </style>
+<!-- 1.内联元素从左往右流动，
+    如果流动遇到阻碍，换行继续流动，“之”型流动，
+    英文不会分割（可以使用word-break属性分开），中文会分割
+    高度与字体有关
+
+
+a , abbr , acronym , b , bdo , big , br , cite , code , dfn ,
+em , font , i , img , input , kbd , label , q , s , samp , 
+select , small , span , strike , strong , sub , sup ,
+textarea , tt , u , var
+
+    2.块级元素从上往下依次流动，
+    高度由内部文档流总和决定，
+
+
+address , blockquote , center , dir , div , dl , fieldset , 
+form , h1 , h2 , h3 , h4 , h5 , h6 , hr , isindex , menu , 
+noframes , noscript , ol , p , pre , table , ul , li
+
+3.-->
+
+
+</head>
+<body>
+    <span>文字1</span><span>文字2</span><span>文字3</span><span>文字4</span><span>文字5</span><span>文字6</span><span>文字7</span><span>文字8</span><span>文字9</span>
+    <span>文字10</span>
+<!-- 文字10与前面分割是因为中间有空格或者回车 -->
+
+    <div>块1</div>
+    <div>块2</div>
+    <div>块3</div>
+    <div>块4</div>
+    <div>块5</div>
+    <div>块6</div>
+    <div>块7</div>
+    <div>块8</div>
+    <div>块9</div>
+    <div>块10</div>
+</body>
+</html>
