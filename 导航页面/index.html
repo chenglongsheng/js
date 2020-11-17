@@ -36,6 +36,11 @@
             'z': 'zhihu.com',
             'm': 'www.mcdaonalds.com.cn'
         }
+        //取出hashInLocalStorage 中对应的 hash
+        var hashInLocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
+        if (hashInLocalStorage) {
+            hash = hashInLocalStorage
+        }
 
         index = 0
         while (index < keys['length']) {
@@ -48,8 +53,13 @@
                 kbdXXX.textContent = row[index2]
                 buttonX = document.createElement('button')
                 buttonX.textContent = '编辑'
+                buttonX.id = row[index2]
                 buttonX.onclick = function (c) {
-                    c.target
+                    key = (c['target']['id'])
+                    x = prompt('给我一个网址')
+                    hash[key] = x //hash变更
+                    localStorage.setItem('zzz', JSON.stringify(hash))
+
                 }
                 kbdXXX.appendChild(buttonX)
                 divXXX.appendChild(kbdXXX)
