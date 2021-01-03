@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画板</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #canvas{
+            background-color: red;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas"></div>
+    <script>
+        var div = document.getElementById('canvas')
+        div.onmousedown=function(a){
+            var x = a.clientX
+            var y = a.clientY
+            var divA = document.createElement("div")
+            divA.style = "width: 6px; height: 6px; background:black; border-radius:3px; position:absolute;left:"+(x-3)+"px;"+"top:"+(y-3)+"px;"
+            div.appendChild(divA)
+        }
+    </script>
+</body>
+</html>
