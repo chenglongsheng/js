@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画板</title>
     <style>
-        body{
+        body {
             margin: 0;
         }
-        #canvas{
+
+        #canvas {
             background-color: red;
             height: 100vh;
         }
     </style>
 </head>
+
 <body>
     <div id="canvas"></div>
     <script>
         var div = document.getElementById('canvas')
-        div.onmousedown=function(a){
+        var printing = false
+        div.onmousedown = function (a) {
+            printing = true
             var x = a.clientX
             var y = a.clientY
             var divA = document.createElement("div")
-            divA.style = "width: 6px; height: 6px; background:black; border-radius:3px; position:absolute;left:"+(x-3)+"px;"+"top:"+(y-3)+"px;"
+            divA.style = "width: 6px; height: 6px; background:black; border-radius:3px; position:absolute;left:" + (x - 3) + "px;" + "top:" + (y - 3) + "px;"
             div.appendChild(divA)
         }
+        div.onmousemove = function (a) {
+            if (printing == true) {
+                var x = a.clientX
+                var y = a.clientY
+                var divA = document.createElement("div")
+                divA.style = "width: 6px; height: 6px; background:black; border-radius:3px; position:absolute;left:" + (x - 3) + "px;" + "top:" + (y - 3) + "px;"
+                div.appendChild(divA)
+            }
+        }
+        div.onmouseup = function (a) {
+            printing = false
+        }
+
     </script>
 </body>
+
 </html>
