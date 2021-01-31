@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>划圆</title>
+    <style>
+        #canvas {
+            background: green;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        var context = canvas.getContext("2d")
+        function drawCirecle(x, y, radius) {
+            context.beginPath()
+            context.arc(x, y, radius, 0, Math.PI * 2)
+            context.fill()
+        }
+        var paintint = false
+        var lastPoint = { x: undefined, y: undefined }
+        canvas.onmousedown = function (aaa) {
+            paintint = true
+            var x = aaa.clientX
+            var y = aaa.clientY
+            lastPoint = { "x": x, "y": y }
+            drawCirecle(x, y, 1)
+        }
+        canvas.onmousemove = function (aaa) {
+            if (paintint) {
+                var x = aaa.clientX
+                var y = aaa.clientY
+                var newPoint = { "x": x, "y": y }
+                drawCirecle(x, y, 1)
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                lastPoint = newPoint
+            }
+        }
+        canvas.onmouseup = function (aaa) {
+            paintint = false
+        }
+        function drawLine(x1, y1, x2, y2) {
+            context.beginPath()
+            context.strokeStyle='black'
+            context.lineWidth = 5
+            context.moveTo(x1, y1)//起点
+            context.lineTo(x2, y2)//终点
+            context.stroke()
+            context.closePath()
+        }
+    </script>
+</body>
+
+</html>
