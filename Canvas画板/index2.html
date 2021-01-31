@@ -13,49 +13,85 @@
         body {
             margin: 0;
         }
+
+        button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 </head>
 
 <body>
     <canvas id="canvas" width="500px" height="500px"></canvas>
+    <button id="eraser">橡皮檫</button>
     <script>
         var canvas = document.getElementById('canvas')
+        window.onresize = function () {
+            resize()
+        }
+        //改变屏幕
+        function resize() {
+            var pageWidth = document.documentElement.clientWidth
+            var pageHeight = document.documentElement.clientHeight
+            canvas.width = pageWidth
+            canvas.height = pageHeight
+        }
         var context = canvas.getContext("2d")
         function drawCirecle(x, y, radius) {
             context.beginPath()
             context.arc(x, y, radius, 0, Math.PI * 2)
             context.fill()
         }
-        var paintint = false
+        var using = false
         var lastPoint = { x: undefined, y: undefined }
+        //鼠标按下
         canvas.onmousedown = function (aaa) {
-            paintint = true
             var x = aaa.clientX
             var y = aaa.clientY
+            if (eraserEnabled) {
+                using = true
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                using = true
+            }
             lastPoint = { "x": x, "y": y }
             drawCirecle(x, y, 1)
         }
+        //鼠标移动
         canvas.onmousemove = function (aaa) {
-            if (paintint) {
-                var x = aaa.clientX
-                var y = aaa.clientY
-                var newPoint = { "x": x, "y": y }
-                drawCirecle(x, y, 1)
-                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
-                lastPoint = newPoint
+            var x = aaa.clientX
+            var y = aaa.clientY
+            if (eraserEnabled) {
+                if (using) {
+                    context.clearRect(x - 5, y - 5, 10, 10)
+                }
+            } else {
+                if (using) {
+                    var newPoint = { "x": x, "y": y }
+                    drawCirecle(x, y, 1)
+                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                    lastPoint = newPoint
+                }
             }
         }
+        //鼠标松开
         canvas.onmouseup = function (aaa) {
-            paintint = false
+            using = false
         }
         function drawLine(x1, y1, x2, y2) {
             context.beginPath()
-            context.strokeStyle='black'
+            context.strokeStyle = 'black'
             context.lineWidth = 5
             context.moveTo(x1, y1)//起点
             context.lineTo(x2, y2)//终点
             context.stroke()
             context.closePath()
+        }
+        var eraserEnabled = false
+        //点击切换橡皮开启状态
+        eraser.onclick = function () {
+            eraserEnabled = !eraserEnabled
         }
     </script>
 </body>
