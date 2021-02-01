@@ -6,13 +6,36 @@ autoSetCanvasSize(canvas)
 listenToUser(canvas)
 
 var eraserEnabled = false
-eraser.onclick = function () {
-    eraserEnabled = true
-    actions.className = 'actions x'
-}
-brush.onclick = function () {
+pen.onclick = function () {
+    console.log("我在使用画笔")
     eraserEnabled = false
-    actions.className = 'actions'
+    pen.classList.add('active')
+    eraser.classList.remove('active')
+}
+eraser.onclick = function () {
+    console.log("我在使用橡皮檫")
+    eraserEnabled = true
+    pen.classList.remove('active')
+    eraser.classList.add('active')
+}
+red.onclick = function () {
+    context.strokeStyle = 'red'
+    red.classList.add('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
+}
+green.onclick = function () {
+    context.strokeStyle = 'green'
+    red.classList.remove('active')
+    green.classList.add('active')
+    blue.classList.remove('active')
+}
+blue.onclick = function () {
+    F
+    context.strokeStyle = 'blue'
+    red.classList.remove('active')
+    green.classList.remove('active')
+    blue.classList.add('active')
 }
 function drawCirecle(x, y, radius) {
     context.beginPath()
@@ -21,7 +44,6 @@ function drawCirecle(x, y, radius) {
 }
 function drawLine(x1, y1, x2, y2) {
     context.beginPath()
-    context.strokeStyle = 'black'
     context.lineWidth = 5
     context.moveTo(x1, y1)//起点
     context.lineTo(x2, y2)//终点

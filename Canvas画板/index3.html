@@ -5,16 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>canvas画板</title>
-    <link rel="stylesheet" href="index3.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="//at.alicdn.com/t/font_2360259_yjbhshkezce.js"></script>
 </head>
 
 <body>
     <canvas id="canvas" width="500px" height="500px"></canvas>
     <div id="actions" class="actions">
-        <button id="eraser">橡皮檫</button>
-        <button id="brush">画笔</button>
+        <svg id="pen" class="icon active">
+            <use xlink:href="#icon-pen"></use>
+        </svg>
+        <svg id="eraser" class="icon">
+            <use xlink:href="#icon-Eraser-Tool"></use>
+        </svg>
     </div>
-    <script src="index3.js"></script>
+    <ol class="colors">
+        <li id="red" class="red"></li>
+        <li id="green" class="green"></li>
+        <li id="blue" class="blue"></li>
+    </ol>
+    <script src="main.js"></script>
 </body>
 
 </html>
