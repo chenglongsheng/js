@@ -5,6 +5,9 @@
 
 #canvas {
     background: block;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 body {
@@ -81,18 +84,23 @@ li {
     right: 50px;
 }
 
+.sizes .active {
+    transform: scale(1.2);
+}
+
 .sizes li {
     margin: 20px 0;
+    border-radius: unset;
 }
 
 .sizes>.thin {
-    border-top: solid 3px;
+    border-top: solid 5px;
     width: 25px;
     height: 0;
 }
 
 .sizes>.thick {
-    border-top: solid 6px;
+    border-top: solid 10px;
     width: 25px;
     height: 0;
 }

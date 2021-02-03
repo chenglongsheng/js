@@ -1,3 +1,6 @@
+// document.body.ontouchstart = function(all){
+//     all.preventDefault()
+// }
 var canvas = document.getElementById('canvas')
 var context = canvas.getContext("2d")
 var eraserEnabled = false
@@ -20,6 +23,7 @@ eraser.onclick = function () {
 }
 clear.onclick = function () {
     context.clearRect(0, 0, canvas.width, canvas.height);
+
 }
 download.onclick = function () {
     var url = canvas.toDataURL("image/png")
@@ -60,9 +64,13 @@ blue.onclick = function () {
 }
 thin.onclick = function () {
     lineWidth = 5
+    thin.classList.add('active')
+    thick.classList.remove('active')
 }
 thick.onclick = function () {
     lineWidth = 10
+    thin.classList.remove('active')
+    thick.classList.add('active')
 }
 function drawCirecle(x, y, radius) {
     context.beginPath()
