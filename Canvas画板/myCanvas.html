@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas画板</title>
+    <script src="//at.alicdn.com/t/font_2360259_ig1eubrjt7j.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #canvas {
+            background: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .actions {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        .actions svg {
+            width: 2em;
+            height: 2em;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+
+        .actions .active {
+            fill: red;
+            transform: scale(1.2);
+        }
+
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        .colors {
+            position: fixed;
+            top: 60px;
+            left: 28px;
+        }
+
+        li {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            list-style: none;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+
+        .colors>.black {
+            background-color: black;
+        }
+
+        .colors>.red {
+            background-color: red;
+        }
+
+        .colors>.green {
+            background-color: green;
+        }
+
+        .colors>.blue {
+            background-color: blue;
+        }
+
+        .colors .active {
+            transform: scale(1.2);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.95);
+        }
+
+        .sizes {
+            position: fixed;
+            top: 5px;
+            right: 50px;
+        }
+
+        .sizes .active {
+            transform: scale(1.2);
+        }
+
+        .sizes li {
+            margin: 20px 0;
+            border-radius: unset;
+        }
+
+        .sizes>.thin {
+            border-top: solid 5px;
+            width: 25px;
+            height: 0;
+        }
+
+        .sizes>.thick {
+            border-top: solid 10px;
+            width: 25px;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <div id="actions" class="actions">
+        <svg id="pen" class="icon active">
+            <use xlink:href="#icon-pen"></use>
+        </svg>
+        <svg id="eraser" class="icon">
+            <use xlink:href="#icon-Eraser-Tool"></use>
+        </svg>
+        <svg id="clear" class="icon">
+            <use xlink:href="#icon-custom-clear"></use>
+        </svg>
+        <svg id="download" class="icon">
+            <use xlink:href="#icon-st-save"></use>
+        </svg>
+    </div>
+    <ol class="colors">
+        <li id="black" class="black active"></li>
+        <li id="red" class="red"></li>
+        <li id="green" class="green"></li>
+        <li id="blue" class="blue"></li>
+    </ol>
+    <ol class="sizes">
+        <li class="thin active" id="thin"></li>
+        <li class="thick" id="thick"></li>
+    </ol>
+
+    <script>
+        // document.body.ontouchstart = function(all){
+        //     all.preventDefault()
+        // }
+        var canvas = document.getElementById('canvas')
+        var context = canvas.getContext("2d")
+        var eraserEnabled = false
+        var lineWidth = 5
+
+        autoSetCanvasSize(canvas)
+        listenToUser(canvas)
+
+        pen.onclick = function () {
+            console.log("我在使用画笔")
+            eraserEnabled = false
+            pen.classList.add('active')
+            eraser.classList.remove('active')
+        }
+        eraser.onclick = function () {
+            console.log("我在使用橡皮檫")
+            eraserEnabled = true
+            pen.classList.remove('active')
+            eraser.classList.add('active')
+        }
+        clear.onclick = function () {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+        }
+        download.onclick = function () {
+            var url = canvas.toDataURL("image/png")
+            var a = document.createElement('a')
+            document.body.appendChild(a)
+            a.href = url
+            a.download = '我的画'
+            a.target = "_blank"
+            a.click()
+        }
+        black.onclick = function () {
+            context.strokeStyle = 'black'
+            black.classList.add('active')
+            red.classList.remove('active')
+            green.classList.remove('active')
+            blue.classList.remove('active')
+        }
+        red.onclick = function () {
+            context.strokeStyle = 'red'
+            black.classList.remove('active')
+            red.classList.add('active')
+            green.classList.remove('active')
+            blue.classList.remove('active')
+        }
+        green.onclick = function () {
+            context.strokeStyle = 'green'
+            black.classList.remove('active')
+            red.classList.remove('active')
+            green.classList.add('active')
+            blue.classList.remove('active')
+        }
+        blue.onclick = function () {
+            context.strokeStyle = 'blue'
+            black.classList.remove('active')
+            red.classList.remove('active')
+            green.classList.remove('active')
+            blue.classList.add('active')
+        }
+        thin.onclick = function () {
+            lineWidth = 5
+            thin.classList.add('active')
+            thick.classList.remove('active')
+        }
+        thick.onclick = function () {
+            lineWidth = 10
+            thin.classList.remove('active')
+            thick.classList.add('active')
+        }
+        function drawCirecle(x, y, radius) {
+            context.beginPath()
+            context.arc(x, y, radius, 0, Math.PI * 2)
+            context.fill()
+        }
+        function drawLine(x1, y1, x2, y2) {
+            context.beginPath()
+            context.lineWidth = lineWidth
+            context.moveTo(x1, y1)//起点
+            context.lineTo(x2, y2)//终点
+            context.stroke()
+            context.closePath()
+        }
+        function autoSetCanvasSize(canvas) {
+            setCanvasSize()
+            window.onresize = function () {
+                setCanvasSize()
+            }
+            function setCanvasSize() {
+                var pageWidth = document.documentElement.clientWidth
+                var pageHeight = document.documentElement.clientHeight
+                canvas.width = pageWidth
+                canvas.height = pageHeight
+            }
+        }
+        function listenToUser(canvas) {
+            //特性检测
+            if (document.body.ontouchstart !== undefined) {
+                //触屏
+                canvas.ontouchstart = function (aaa) {
+                    var x = aaa.touches[0].clientX
+                    var y = aaa.touches[0].clientY
+                    using = true
+                    if (eraserEnabled) {
+                        context.clearRect(x - 5, y - 5, 10, 10)
+                    } else {
+                        lastPoint = { "x": x, "y": y }
+                    }
+                }
+                canvas.ontouchmove = function (aaa) {
+                    var x = aaa.touches[0].clientX
+                    var y = aaa.touches[0].clientY
+                    if (!using) { return }
+                    if (eraserEnabled) {
+                        context.clearRect(x - 5, y - 5, 10, 10)
+                    } else {
+                        var newPoint = { "x": x, "y": y }
+                        drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                        lastPoint = newPoint
+                    }
+                }
+                canvas.ontouchend = function () {
+                    using = false
+                }
+            } else {
+                //鼠标
+                var using = false
+                var lastPoint = { x: undefined, y: undefined }
+                //鼠标按下
+                canvas.onmousedown = function (aaa) {
+                    var x = aaa.clientX
+                    var y = aaa.clientY
+                    using = true
+                    if (eraserEnabled) {
+                        context.clearRect(x - 5, y - 5, 10, 10)
+                    } else {
+                        lastPoint = { "x": x, "y": y }
+                    }
+                }
+                //鼠标移动
+                canvas.onmousemove = function (aaa) {
+                    var x = aaa.clientX
+                    var y = aaa.clientY
+                    if (!using) { return }
+                    if (eraserEnabled) {
+                        context.clearRect(x - 5, y - 5, 10, 10)
+                    } else {
+                        var newPoint = { "x": x, "y": y }
+                        drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                        lastPoint = newPoint
+                    }
+                }
+                //鼠标松开
+                canvas.onmouseup = function () {
+                    using = false
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>
