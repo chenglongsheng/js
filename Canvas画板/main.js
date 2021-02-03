@@ -1,11 +1,11 @@
 var canvas = document.getElementById('canvas')
 var context = canvas.getContext("2d")
+var eraserEnabled = false
+var lineWidth = 5
 
 autoSetCanvasSize(canvas)
-
 listenToUser(canvas)
 
-var eraserEnabled = false
 pen.onclick = function () {
     console.log("我在使用画笔")
     eraserEnabled = false
@@ -18,24 +18,51 @@ eraser.onclick = function () {
     pen.classList.remove('active')
     eraser.classList.add('active')
 }
+clear.onclick = function () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+download.onclick = function () {
+    var url = canvas.toDataURL("image/png")
+    var a = document.createElement('a')
+    document.body.appendChild(a)
+    a.href = url
+    a.download = '我的画'
+    a.target = "_blank"
+    a.click()
+}
+black.onclick = function () {
+    context.strokeStyle = 'black'
+    black.classList.add('active')
+    red.classList.remove('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
+}
 red.onclick = function () {
     context.strokeStyle = 'red'
+    black.classList.remove('active')
     red.classList.add('active')
     green.classList.remove('active')
     blue.classList.remove('active')
 }
 green.onclick = function () {
     context.strokeStyle = 'green'
+    black.classList.remove('active')
     red.classList.remove('active')
     green.classList.add('active')
     blue.classList.remove('active')
 }
 blue.onclick = function () {
-    F
     context.strokeStyle = 'blue'
+    black.classList.remove('active')
     red.classList.remove('active')
     green.classList.remove('active')
     blue.classList.add('active')
+}
+thin.onclick = function () {
+    lineWidth = 5
+}
+thick.onclick = function () {
+    lineWidth = 10
 }
 function drawCirecle(x, y, radius) {
     context.beginPath()
@@ -44,7 +71,7 @@ function drawCirecle(x, y, radius) {
 }
 function drawLine(x1, y1, x2, y2) {
     context.beginPath()
-    context.lineWidth = 5
+    context.lineWidth = lineWidth
     context.moveTo(x1, y1)//起点
     context.lineTo(x2, y2)//终点
     context.stroke()

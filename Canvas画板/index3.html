@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>canvas画板</title>
     <link rel="stylesheet" href="style.css">
-    <script src="//at.alicdn.com/t/font_2360259_yjbhshkezce.js"></script>
+    <script src="//at.alicdn.com/t/font_2360259_ig1eubrjt7j.js"></script>
 </head>
 
 <body>
@@ -18,12 +18,24 @@
         <svg id="eraser" class="icon">
             <use xlink:href="#icon-Eraser-Tool"></use>
         </svg>
+        <svg id="clear" class="icon">
+            <use xlink:href="#icon-custom-clear"></use>
+        </svg>
+        <svg id="download" class="icon">
+            <use xlink:href="#icon-st-save"></use>
+        </svg>
     </div>
     <ol class="colors">
+        <li id="black" class="black"></li>
         <li id="red" class="red"></li>
         <li id="green" class="green"></li>
         <li id="blue" class="blue"></li>
     </ol>
+    <ol class="sizes">
+        <li class="thin" id="thin"></li>
+        <li class="thick" id="thick"></li>
+    </ol>
+
     <script src="main.js"></script>
 </body>
 
